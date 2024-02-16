@@ -24,7 +24,6 @@ CREATE TABLE IF NOT EXISTS `pharmacy`.`client` (
   `address` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -38,7 +37,6 @@ CREATE TABLE IF NOT EXISTS `pharmacy`.`components` (
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -53,7 +51,6 @@ CREATE TABLE IF NOT EXISTS `pharmacy`.`doctor` (
   `crm` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -67,7 +64,6 @@ CREATE TABLE IF NOT EXISTS `pharmacy`.`type_product` (
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -87,7 +83,6 @@ CREATE TABLE IF NOT EXISTS `pharmacy`.`product` (
     FOREIGN KEY (`id_type_product`)
     REFERENCES `pharmacy`.`type_product` (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -106,7 +101,6 @@ CREATE TABLE IF NOT EXISTS `pharmacy`.`sell` (
     FOREIGN KEY (`id_client`)
     REFERENCES `pharmacy`.`client` (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -130,7 +124,6 @@ CREATE TABLE IF NOT EXISTS `pharmacy`.`sell_has_product` (
     FOREIGN KEY (`sell_id`)
     REFERENCES `pharmacy`.`sell` (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -154,7 +147,6 @@ CREATE TABLE IF NOT EXISTS `pharmacy`.`doctor_recipe` (
     FOREIGN KEY (`id_sell`)
     REFERENCES `pharmacy`.`sell_has_product` (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -188,7 +180,6 @@ CREATE TABLE IF NOT EXISTS `pharmacy`.`manufacturers` (
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8mb3;
 
 
