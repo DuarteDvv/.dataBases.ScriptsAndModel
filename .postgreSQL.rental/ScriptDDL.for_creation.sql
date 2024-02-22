@@ -11,7 +11,7 @@ CREATE TABLE movie_category(
 CREATE TABLE movie(
 	id SERIAL PRIMARY KEY,
 	title VARCHAR(45) NOT NULL,
-	duration DECIMAL(3,2) NOT NULL,
+	duration DECIMAL(5,2) NOT NULL,
 	id_category INT NOT NULL REFERENCES movie_category(id),
 	price_per_day MONEY NOT NULL
 );
