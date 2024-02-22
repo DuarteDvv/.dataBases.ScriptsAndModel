@@ -65,5 +65,5 @@ CREATE TABLE returned(
 	id_rent INT NOT NULL REFERENCES rent(id),
 	return_date DATE NOT NULL,
 	number_returned INT NOT NULL,
-	returned_condition NOT NULL
+	returned_condition VARCHAR(45) NOT NULL
 );
