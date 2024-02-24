@@ -73,6 +73,7 @@ WHERE
 SELECT 
     r.id,
     c.first_name,
+	m.title,
     r.begin_date,
     r.end_date,
     ret.return_date,
@@ -91,4 +92,32 @@ INNER JOIN
 LEFT JOIN
     returned AS ret ON r.id = ret.id_rent
 GROUP BY 
-    r.id, c.first_name, r.begin_date, r.end_date, ret.return_date;
+    r.id, c.first_name,m.title, r.begin_date, r.end_date, ret.return_date;
+	
+-- number of movies rented by category and total price
+
+SELECT 
+    c.id AS client_id,
+    CONCAT(c.first_name, ' ', c.last_name) AS client_name,
+    mc.category AS movie_category,
+    COUNT(rhd.id_rent) AS num_rented_movies,
+    SUM(m.price_per_day * (EXTRACT(DAY FROM ret.return_date) - EXTRACT(DAY FROM r.begin_date))) AS total_spent
+FROM 
+    client AS c 
+INNER JOIN 
+    rent AS r ON r.id_client = c.id
+INNER JOIN 
+    rent_has_dvd AS rhd ON r.id = rhd.id_rent
+INNER JOIN
+    dvd AS d ON d.id = rhd.id_dvd
+INNER JOIN 
+    movie AS m ON m.id = d.id_movie
+INNER JOIN
+    movie_category AS mc ON mc.id = m.id_category
+LEFT JOIN
+    returned AS ret ON r.id = ret.id_rent
+WHERE
+    mc.category = 'Drama'  
+GROUP BY 
+    c.id, c.first_name, c.last_name, mc.category;
+
