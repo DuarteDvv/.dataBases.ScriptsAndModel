@@ -121,3 +121,47 @@ WHERE
 GROUP BY 
     c.id, c.first_name, c.last_name, mc.category;
 
+-- return if exists, all rented movies by category
+
+SELECT 
+    c.id AS client_id,
+    CONCAT(c.first_name, ' ', c.last_name) AS client_name
+FROM 
+    client AS c 
+WHERE
+    EXISTS (
+        SELECT 1
+        FROM rent AS r
+        INNER JOIN rent_has_dvd AS rhd ON r.id = rhd.id_rent
+        INNER JOIN dvd AS d ON d.id = rhd.id_dvd
+        INNER JOIN movie AS m ON m.id = d.id_movie
+        INNER JOIN movie_category AS mc ON mc.id = m.id_category
+        WHERE
+            r.id_client = c.id
+            AND mc.category = 'Drama'
+    );
+
+-- return late clients and how many days
+SELECT 
+    c.id AS client_id,
+    CONCAT(c.first_name, ' ', c.last_name) AS client_name,
+    r.id AS rent_id,
+    r.begin_date,
+    r.end_date,
+    CURRENT_DATE AS current_date,
+    CASE 
+        WHEN CURRENT_DATE > r.end_date THEN CURRENT_DATE - r.end_date
+        ELSE 0
+    END AS days_late
+FROM 
+    client AS c 
+INNER JOIN 
+    rent AS r ON r.id_client = c.id
+WHERE
+    CURRENT_DATE > r.end_date
+    AND NOT EXISTS (
+        SELECT 1
+        FROM returned AS ret
+        WHERE ret.id_rent = r.id
+    ); 
+
