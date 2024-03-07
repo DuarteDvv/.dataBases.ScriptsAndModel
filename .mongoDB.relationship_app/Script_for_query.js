@@ -37,5 +37,44 @@ db.Users.find(
    }
  )
 
-//
+// users with age <26 and >29
+
+ db.Users.find(
+   {
+     $or:
+       [
+         {
+           age:{
+             $gt:29
+           }
+         },
+         {
+           age:{
+             $lt:26
+           }
+         }
+       ]
+   }
+ )
+
+// all messages by two people
+
+db.Messages.find({
+  $or: [
+    { senderId: ObjectId("user_id_1"), recipientId: ObjectId("user_id_2") },
+    { senderId: ObjectId("user_id_2"), recipientId: ObjectId("user_id_1") },
+  ],
+});
+
+// users who matched
+
+db.LikesMatches.find({
+  $and: [
+    { senderId: { $in: [ObjectId("user_id_1"), ObjectId("user_id_2")] } },
+    { recipientId: { $in: [ObjectId("user_id_1"), ObjectId("user_id_2")] } },
+    { matchState: "matched" },
+  ],
+});
+
+
 
