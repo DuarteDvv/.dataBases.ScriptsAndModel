@@ -26,5 +26,16 @@ db.Users.find(
     gender: "Female", 
     interests: "Reading", 
     location: { $near: { $geometry: { type: "Point", coordinates: [-46.6333, -23.5505] }, $maxDistance: 10000000 } } 
-  });
+  }
+);
+
+// users with hobbies x
+
+ db.Users.find(
+   {
+     interests: {$in:['Reading','Sports','Movies']}
+   }
+ )
+
+//
 
